@@ -1,0 +1,1312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Caribbean Construction | Design + Build</title>
+  <style>
+    :root {
+      --primary: #0f2f57;
+      --primary-dark: #0a1f3c;
+      --secondary: #5eb33c;
+      --accent: #2bb7f3;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --bg: #f3f6fb;
+      --white: #ffffff;
+      --card-shadow: 0 14px 40px rgba(15, 47, 87, 0.12);
+      --hover-shadow: 0 20px 50px rgba(15, 47, 87, 0.2);
+      --radius: 18px;
+      --transition: all 0.35s ease;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.6;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    .container {
+      width: min(1180px, 92%);
+      margin: 0 auto;
+    }
+
+    .topbar {
+      background: var(--primary-dark);
+      color: var(--white);
+      padding: 12px 0;
+      font-size: 14px;
+    }
+
+    .topbar-inner {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .topbar-left,
+    .topbar-right {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .pill {
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.1);
+      transition: var(--transition);
+    }
+
+    .pill:hover {
+      background: rgba(255,255,255,0.2);
+      transform: translateY(-2px);
+    }
+
+    header.hero {
+      min-height: 100vh;
+      color: var(--white);
+      background:
+        linear-gradient(rgba(8, 20, 40, 0.55), rgba(8, 20, 40, 0.7)),
+        url('https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(8px);
+      background: rgba(10, 31, 60, 0.45);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .nav-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 18px 0;
+      gap: 20px;
+    }
+
+    .logo {
+      font-size: 28px;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+    }
+
+    .logo small {
+      display: block;
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: 2.2px;
+      margin-top: 4px;
+      opacity: 0.9;
+      text-transform: uppercase;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 24px;
+      flex-wrap: wrap;
+      font-weight: 600;
+      font-size: 15px;
+    }
+
+    .nav-links a {
+      position: relative;
+      transition: var(--transition);
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -6px;
+      width: 0;
+      height: 2px;
+      background: var(--secondary);
+      transition: var(--transition);
+    }
+
+    .nav-links a:hover {
+      color: #d7f3ff;
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 14px 24px;
+      border-radius: 12px;
+      font-weight: 700;
+      transition: var(--transition);
+      cursor: pointer;
+      border: none;
+    }
+
+    .btn-primary {
+      background: var(--secondary);
+      color: var(--white);
+      box-shadow: 0 10px 24px rgba(94, 179, 60, 0.25);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 16px 30px rgba(94, 179, 60, 0.35);
+    }
+
+    .btn-secondary {
+      background: rgba(255,255,255,0.1);
+      color: var(--white);
+      border: 1px solid rgba(255,255,255,0.25);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255,255,255,0.2);
+      transform: translateY(-3px);
+    }
+
+    .hero-content {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      padding: 72px 0 100px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 36px;
+      align-items: center;
+    }
+
+    .hero-tag {
+      display: inline-block;
+      padding: 10px 16px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.25);
+      background: rgba(255,255,255,0.08);
+      margin-bottom: 22px;
+      font-size: 14px;
+      letter-spacing: 1px;
+    }
+
+    .hero h1 {
+      font-size: clamp(42px, 6vw, 72px);
+      line-height: 1.05;
+      margin-bottom: 18px;
+      font-weight: 800;
+    }
+
+    .hero p {
+      font-size: 20px;
+      max-width: 760px;
+      color: rgba(255,255,255,0.93);
+      margin-bottom: 30px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-bottom: 30px;
+    }
+
+    .hero-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: 20px;
+    }
+
+    .stat-card {
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 16px;
+      padding: 20px;
+      backdrop-filter: blur(6px);
+      transition: var(--transition);
+    }
+
+    .stat-card:hover {
+      transform: translateY(-6px);
+      background: rgba(255,255,255,0.14);
+    }
+
+    .stat-card h3 {
+      font-size: 28px;
+      margin-bottom: 6px;
+    }
+
+    .hero-panel {
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 24px;
+      padding: 26px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.18);
+      backdrop-filter: blur(8px);
+      transition: var(--transition);
+    }
+
+    .hero-panel:hover {
+      transform: translateY(-8px);
+    }
+
+    .hero-panel h3 {
+      font-size: 24px;
+      margin-bottom: 14px;
+    }
+
+    .hero-panel ul {
+      list-style: none;
+      display: grid;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .hero-panel li {
+      padding: 12px 14px;
+      border-radius: 12px;
+      background: rgba(255,255,255,0.08);
+    }
+
+    section {
+      padding: 90px 0;
+      background: var(--white);
+    }
+
+    section.alt {
+      background: #f8fbff;
+    }
+
+    .section-head {
+      max-width: 760px;
+      margin: 0 auto 48px;
+      text-align: center;
+    }
+
+    .section-kicker {
+      display: inline-block;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--secondary);
+      font-weight: 800;
+      margin-bottom: 12px;
+    }
+
+    .section-head h2 {
+      font-size: clamp(32px, 4vw, 48px);
+      color: var(--primary-dark);
+      margin-bottom: 14px;
+    }
+
+    .section-head p {
+      color: var(--muted);
+      font-size: 18px;
+      line-height: 1.75;
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 32px;
+      align-items: stretch;
+    }
+
+    .about-card,
+    .info-card,
+    .service-card,
+    .project-card,
+    .cost-card,
+    .contact-card,
+    .testimonial-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      box-shadow: var(--card-shadow);
+      overflow: hidden;
+      transition: var(--transition);
+    }
+
+    .about-card:hover,
+    .info-card:hover,
+    .service-card:hover,
+    .project-card:hover,
+    .cost-card:hover,
+    .contact-card:hover,
+    .testimonial-card:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--hover-shadow);
+    }
+
+    .about-card {
+      padding: 34px;
+    }
+
+    .about-card p {
+      color: var(--muted);
+      margin-bottom: 18px;
+      font-size: 17px;
+      line-height: 1.8;
+    }
+
+    .about-list {
+      display: grid;
+      gap: 14px;
+      margin-top: 20px;
+    }
+
+    .about-list div {
+      background: #f6f9fd;
+      border-left: 4px solid var(--secondary);
+      padding: 14px 16px;
+      border-radius: 12px;
+    }
+
+    .mission-vision {
+      display: grid;
+      gap: 22px;
+    }
+
+    .info-card {
+      padding: 28px;
+    }
+
+    .info-card h3 {
+      margin-bottom: 12px;
+      color: var(--primary-dark);
+      font-size: 24px;
+    }
+
+    .info-card p {
+      color: var(--muted);
+      line-height: 1.8;
+    }
+
+    .services-grid,
+    .projects-grid,
+    .testimonials-grid,
+    .cost-grid,
+    .contact-grid,
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .service-card {
+      padding: 28px;
+      position: relative;
+    }
+
+    .service-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(43,183,243,0.04), rgba(94,179,60,0.04));
+      opacity: 0;
+      transition: var(--transition);
+    }
+
+    .service-card:hover::before {
+      opacity: 1;
+    }
+
+    .icon {
+      width: 58px;
+      height: 58px;
+      border-radius: 16px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      color: var(--white);
+      font-size: 24px;
+      margin-bottom: 18px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .service-card h3,
+    .service-card p,
+    .service-card a {
+      position: relative;
+      z-index: 1;
+    }
+
+    .service-card h3 {
+      font-size: 22px;
+      color: var(--primary-dark);
+      margin-bottom: 10px;
+    }
+
+    .service-card p {
+      color: var(--muted);
+      margin-bottom: 14px;
+    }
+
+    .service-card a {
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    .service-card:hover a {
+      color: var(--secondary);
+    }
+
+    .why-grid .info-card {
+      padding: 26px;
+    }
+
+    .project-card {
+      background: var(--white);
+    }
+
+    .project-image-wrap {
+      overflow: hidden;
+      position: relative;
+      height: 245px;
+    }
+
+    .project-image-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s ease;
+    }
+
+    .project-card:hover .project-image-wrap img {
+      transform: scale(1.08);
+    }
+
+    .project-badge {
+      position: absolute;
+      top: 16px;
+      left: 16px;
+      background: rgba(10,31,60,0.85);
+      color: var(--white);
+      font-size: 12px;
+      font-weight: 700;
+      padding: 8px 12px;
+      border-radius: 999px;
+      backdrop-filter: blur(4px);
+    }
+
+    .project-content {
+      padding: 24px;
+    }
+
+    .project-content h3 {
+      color: var(--primary-dark);
+      margin-bottom: 8px;
+      font-size: 22px;
+    }
+
+    .project-meta {
+      color: var(--secondary);
+      font-weight: 700;
+      margin-bottom: 10px;
+      font-size: 14px;
+    }
+
+    .project-content p {
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
+
+    .tag-list {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .tag-list span {
+      background: #edf5ff;
+      color: var(--primary);
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 700;
+      transition: var(--transition);
+    }
+
+    .project-card:hover .tag-list span {
+      background: #e6f6df;
+      color: #357a1b;
+    }
+
+    .cost-card {
+      padding: 28px;
+      text-align: left;
+    }
+
+    .cost-card h3 {
+      font-size: 22px;
+      color: var(--primary-dark);
+      margin-bottom: 10px;
+    }
+
+    .price {
+      font-size: 34px;
+      font-weight: 800;
+      color: var(--secondary);
+      margin-bottom: 14px;
+    }
+
+    .cost-card ul {
+      list-style: none;
+      display: grid;
+      gap: 10px;
+      color: var(--muted);
+      margin-top: 14px;
+    }
+
+    .testimonial-card {
+      padding: 28px;
+    }
+
+    .testimonial-card p {
+      color: var(--muted);
+      font-style: italic;
+      margin-bottom: 18px;
+    }
+
+    .testimonial-card h4 {
+      color: var(--primary-dark);
+      margin-bottom: 4px;
+    }
+
+    .contact-section {
+      background:
+        linear-gradient(rgba(10,31,60,0.92), rgba(15,47,87,0.94)),
+        url('https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+      color: var(--white);
+    }
+
+    .contact-section .section-head h2,
+    .contact-section .section-head p {
+      color: var(--white);
+    }
+
+    .contact-grid {
+      grid-template-columns: 0.9fr 1.1fr;
+      align-items: stretch;
+    }
+
+    .contact-card {
+      padding: 30px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.14);
+      box-shadow: none;
+      backdrop-filter: blur(8px);
+    }
+
+    .contact-card h3 {
+      font-size: 24px;
+      margin-bottom: 18px;
+    }
+
+    .contact-info {
+      display: grid;
+      gap: 14px;
+      margin-bottom: 24px;
+    }
+
+    .contact-info div {
+      background: rgba(255,255,255,0.08);
+      border-radius: 12px;
+      padding: 14px 16px;
+      transition: var(--transition);
+    }
+
+    .contact-info div:hover {
+      transform: translateX(6px);
+      background: rgba(255,255,255,0.14);
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+    }
+
+    .form-grid .full {
+      grid-column: 1 / -1;
+    }
+
+    input,
+    textarea,
+    select {
+      width: 100%;
+      padding: 15px 16px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.2);
+      background: rgba(255,255,255,0.1);
+      color: var(--white);
+      outline: none;
+      transition: var(--transition);
+      font: inherit;
+    }
+
+    input::placeholder,
+    textarea::placeholder {
+      color: rgba(255,255,255,0.7);
+    }
+
+    input:focus,
+    textarea:focus,
+    select:focus {
+      border-color: rgba(255,255,255,0.55);
+      background: rgba(255,255,255,0.16);
+    }
+
+    textarea {
+      min-height: 140px;
+      resize: vertical;
+    }
+
+    footer {
+      background: var(--primary-dark);
+      color: rgba(255,255,255,0.75);
+      padding: 26px 0;
+      text-align: center;
+      font-size: 14px;
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    @media (max-width: 1080px) {
+      .hero-grid,
+      .about-grid,
+      .contact-grid,
+      .services-grid,
+      .projects-grid,
+      .testimonials-grid,
+      .cost-grid,
+      .why-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .hero-panel {
+        order: -1;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .nav-inner,
+      .topbar-inner,
+      .footer-inner {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .nav-links,
+      .topbar-right,
+      .topbar-left {
+        width: 100%;
+        justify-content: flex-start;
+      }
+
+      .hero-grid,
+      .about-grid,
+      .contact-grid,
+      .services-grid,
+      .projects-grid,
+      .testimonials-grid,
+      .cost-grid,
+      .why-grid,
+      .hero-stats,
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-content {
+        padding: 50px 0 80px;
+      }
+
+      .hero p {
+        font-size: 18px;
+      }
+
+      .btn {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="container topbar-inner">
+      <div class="topbar-left">
+        <span class="pill">Design + Build</span>
+        <span class="pill">Estimates</span>
+        <span class="pill">Project Management</span>
+      </div>
+      <div class="topbar-right">
+        <span>📍 Batangas · Projects Nationwide</span>
+        <span>🕒 6 Years Experience</span>
+      </div>
+    </div>
+  </div>
+
+  <header class="hero" id="home">
+    <div class="navbar">
+      <div class="container nav-inner">
+        <div class="logo">
+          Caribbean Construction
+          <small>Committed to Superior Quality and Results</small>
+        </div>
+        <nav class="nav-links">
+          <a href="#about">About</a>
+          <a href="#services">Services</a>
+          <a href="#projects">Projects</a>
+          <a href="#cost-guide">Cost Guide</a>
+          <a href="#testimonials">Testimonials</a>
+          <a href="#contact">Contact</a>
+        </nav>
+        <a href="#contact" class="btn btn-primary">Free Consultation</a>
+      </div>
+    </div>
+
+    <div class="container hero-content">
+      <div class="hero-grid">
+        <div>
+          <div class="hero-tag">Trusted Construction & Design Support in the Philippines</div>
+          <h1>Building spaces with quality, function, and lasting value.</h1>
+          <p>
+            Caribbean Construction is a Batangas-based design and build company delivering residential, commercial,
+            and improvement projects through dependable execution, practical planning, cost-conscious solutions,
+            and strong project coordination from concept to completion.
+          </p>
+          <div class="hero-actions">
+            <a href="#projects" class="btn btn-primary">View Sample Projects</a>
+            <a href="#services" class="btn btn-secondary">Explore Services</a>
+          </div>
+          <div class="hero-stats">
+            <div class="stat-card">
+              <h3>30+ Years</h3>
+              <p>International experience from company leadership.</p>
+            </div>
+            <div class="stat-card">
+              <h3>Nationwide</h3>
+              <p>Serving projects in Batangas and across the Philippines.</p>
+            </div>
+            <div class="stat-card">
+              <h3>End-to-End</h3>
+              <p>From planning and estimates to construction and delivery.</p>
+            </div>
+          </div>
+        </div>
+
+        <aside class="hero-panel">
+          <h3>What We Deliver</h3>
+          <ul>
+            <li>✔ Proper construction methods and quality workmanship</li>
+            <li>✔ Practical and cost-effective project solutions</li>
+            <li>✔ Strong coordination between design and execution</li>
+            <li>✔ Reliable management for smooth site progress</li>
+          </ul>
+          <a href="#contact" class="btn btn-primary" style="width:100%;">Message Us Today</a>
+        </aside>
+      </div>
+    </div>
+  </header>
+
+  <section id="about">
+    <div class="container">
+      <div class="section-head">
+        <span class="section-kicker">About Us</span>
+        <h2>Built on engineering discipline, practical thinking, and dependable execution.</h2>
+        <p>
+          Caribbean Construction combines technical experience, proper planning, and on-site coordination to deliver
+          projects that are efficient, durable, and aligned with client goals.
+        </p>
+      </div>
+
+      <div class="about-grid">
+        <div class="about-card">
+          <p>
+            Caribbean Construction is a design and build company led by Civil Engineer Romeo L. Nocete,
+            with over 30 years of international experience. The company is founded on proper construction practice,
+            quality workmanship, and a commitment to building projects the right way.
+          </p>
+          <p>
+            We specialize in delivering quality projects—even in complex or challenging sites—through proper construction methods,
+            value-conscious planning, and strong coordination between design and execution.
+          </p>
+          <p>
+            Our goal is to provide practical, cost-effective, and reliable solutions from planning to completion,
+            helping clients move forward with confidence and clarity.
+          </p>
+          <div class="about-list">
+            <div><strong>Core Focus:</strong> Residential, commercial, renovation, and site-specific construction solutions.</div>
+            <div><strong>Approach:</strong> Clear coordination, efficient project delivery, and realistic cost planning.</div>
+            <div><strong>Strength:</strong> Strong understanding of both technical execution and overall project management.</div>
+          </div>
+        </div>
+
+        <div class="mission-vision">
+          <div class="info-card">
+            <h3>Mission</h3>
+            <p>
+              To deliver high-quality construction and design services through proper engineering practices,
+              efficient project management, and a commitment to building projects the right way.
+            </p>
+          </div>
+          <div class="info-card">
+            <h3>Vision</h3>
+            <p>
+              To be a trusted construction company in the Philippines known for quality workmanship,
+              reliable delivery, and excellence in both local and international standards.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="alt">
+    <div class="container">
+      <div class="section-head">
+        <span class="section-kicker">Why Choose Us</span>
+        <h2>Professional support from planning up to project completion.</h2>
+        <p>
+          We aim to help clients reduce uncertainty by providing organized coordination, practical decision-making,
+          and disciplined site execution.
+        </p>
+      </div>
+
+      <div class="why-grid">
+        <div class="info-card">
+          <h3>Proper Construction Practices</h3>
+          <p>We prioritize sound construction methods, organized workflows, and attention to workmanship to ensure long-term project value.</p>
+        </div>
+        <div class="info-card">
+          <h3>Cost-Conscious Planning</h3>
+          <p>We help clients understand likely project costs early, allowing better planning, budgeting, and decision-making.</p>
+        </div>
+        <div class="info-card">
+          <h3>Reliable Coordination</h3>
+          <p>We support smooth communication between stakeholders, consultants, suppliers, and site personnel for better project flow.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="services">
+    <div class="container">
+      <div class="section-head">
+        <span class="section-kicker">Services</span>
+        <h2>Comprehensive construction and project support services.</h2>
+        <p>
+          Our services are structured to support clients at every stage—whether you are just planning,
+          preparing a budget, or already moving into construction.
+        </p>
+      </div>
+
+      <div class="services-grid">
+        <article class="service-card">
+          <div class="icon">🏗️</div>
+          <h3>Construction Services</h3>
+          <p>Execution of residential and commercial projects with focus on structural reliability, quality workmanship, and organized implementation.</p>
+          <a href="#contact">Inquire About Construction</a>
+        </article>
+
+        <article class="service-card">
+          <div class="icon">📐</div>
+          <h3>Architectural & Design Support</h3>
+          <p>Planning assistance, design coordination, visual presentation support, and practical development guidance for proposed projects.</p>
+          <a href="#contact">Request Design Support</a>
+        </article>
+
+        <article class="service-card">
+          <div class="icon">💰</div>
+          <h3>Cost Estimation</h3>
+          <p>Preliminary estimates, budget studies, and cost guidance to help clients understand probable expenses before construction begins.</p>
+          <a href="#cost-guide">View Cost Guide</a>
+        </article>
+
+        <article class="service-card">
+          <div class="icon">📋</div>
+          <h3>Project Management</h3>
+          <p>Monitoring, reporting, coordination, and scheduling support to keep projects aligned with timeline, budget, and quality targets.</p>
+          <a href="#contact">Discuss Your Project</a>
+        </article>
+
+        <article class="service-card">
+          <div class="icon">🛠️</div>
+          <h3>Renovation & Improvements</h3>
+          <p>Upgrade existing spaces through repairs, improvements, functional enhancements, and refreshed presentation for better value and usability.</p>
+          <a href="#projects">See Sample Works</a>
+        </article>
+
+        <article class="service-card">
+          <div class="icon">🌐</div>
+          <h3>Consultation & Planning</h3>
+          <p>Early-stage consultation for owners who need guidance on project direction, cost expectations, construction readiness, and execution strategy.</p>
+          <a href="#contact">Book a Consultation</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects" class="alt">
+    <div class="container">
+      <div class="section-head">
+        <span class="section-kicker">Featured Projects</span>
+        <h2>Temporary sample content for presentation and portfolio layout.</h2>
+        <p>
+          These are placeholder project entries designed to make the website look complete.
+          You can later replace the images, titles, locations, and descriptions with your actual company projects.
+        </p>
+      </div>
+
+      <div class="projects-grid">
+        <article class="project-card">
+          <div class="project-image-wrap">
+            <img src="project1.jpg" alt="American-Inspired Residence with Mediterranean Accents" />
+            <span class="project-badge">Featured Project</span>
+          </div>
+          <div class="project-content">
+            <div class="project-meta">Batangas · Single-Storey Residential</div>
+            <h3>American-Inspired Residence with Mediterranean Accents</h3>
+            <p>A single-storey residential project designed with an American-inspired approach enhanced by Mediterranean accents, emphasizing comfort, functionality, and clean architectural lines.</p>
+            <div class="tag-list">
+              <span>Single-Storey</span>
+              <span>American-Inspired</span>
+              <span>Mediterranean Accents</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="project-card">
+          <div class="project-image-wrap">
+            <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=80" alt="Commercial Building" />
+            <span class="project-badge">Sample Project</span>
+          </div>
+          <div class="project-content">
+            <div class="project-meta">Lipa City · Commercial</div>
+            <h3>Mixed-Use Commercial Building</h3>
+            <p>A practical development concept with efficient space utilization, professional exterior presentation, and reliable structural planning.</p>
+            <div class="tag-list">
+              <span>Retail Spaces</span>
+              <span>Office Use</span>
+              <span>Value-Oriented</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="project-card">
+          <div class="project-image-wrap">
+            <img src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1200&q=80" alt="Interior Renovation" />
+            <span class="project-badge">Sample Project</span>
+          </div>
+          <div class="project-content">
+            <div class="project-meta">Batangas Province · Renovation</div>
+            <h3>Interior Improvement Project</h3>
+            <p>An improvement-focused project intended to refresh interior usability, appearance, comfort, and overall property value.</p>
+            <div class="tag-list">
+              <span>Renovation</span>
+              <span>Interior Upgrade</span>
+              <span>Modern Finish</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="project-card">
+          <div class="project-image-wrap">
+            <img src="https://images.unsplash.com/photo-1511818966892-d7d671e672a2?auto=format&fit=crop&w=1200&q=80" alt="House Construction" />
+            <span class="project-badge">Sample Project</span>
+          </div>
+          <div class="project-content">
+            <div class="project-meta">Nationwide · Design + Build</div>
+            <h3>Contemporary Family Residence</h3>
+            <p>A full-scope design and build concept balancing practical planning, functional spaces, and appealing exterior presentation.</p>
+            <div class="tag-list">
+              <span>Turnkey</span>
+              <span>Family Home</span>
+              <span>Design + Build</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="project-card">
+          <div class="project-image-wrap">
+            <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1200&q=80" alt="Modern Villa" />
+            <span class="project-badge">Sample Project</span>
+          </div>
+          <div class="project-content">
+            <div class="project-meta">Anilao · Residential</div>
+            <h3>Vacation House Concept</h3>
+            <p>A tropical-oriented residential concept designed to maximize comfort, openness, and relaxed lifestyle living in a scenic location.</p>
+            <div class="tag-list">
+              <span>Tropical Feel</span>
+              <span>Open Layout</span>
+              <span>Premium Finish</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="project-card">
+          <div class="project-image-wrap">
+            <img src="https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&w=1200&q=80" alt="Townhouse Project" />
+            <span class="project-badge">Sample Project</span>
+          </div>
+          <div class="project-content">
+            <div class="project-meta">Metro Area · Housing</div>
+            <h3>Townhouse Development Proposal</h3>
+            <p>A compact housing development concept focused on efficient planning, market practicality, and attractive modern curb appeal.</p>
+            <div class="tag-list">
+              <span>Multi-Unit</span>
+              <span>Efficient Space</span>
+              <span>Market Ready</span>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="project-spotlight-1">
+    <div class="container">
+      <div class="section-head">
+        <span class="section-kicker">Project Spotlight</span>
+        <h2>Project 1 – American-Inspired Residence with Mediterranean Accents</h2>
+        <p>
+          A detailed featured presentation for your first actual project. The images below use your folder filenames,
+          so they will display once those image files are placed in the same folder as the website file.
+        </p>
+      </div>
+
+      <div class="about-grid" style="align-items:start;">
+        <div class="about-card">
+          <p>
+            A single-storey residential project designed with an American-Inspired Residence with Mediterranean Accents approach,
+            emphasizing comfort, functionality, and clean architectural lines.
+          </p>
+          <p>
+            The house features a well-balanced layout with generous interior spaces, a covered carport, and seamless indoor-outdoor connection
+            suited for the Batangas climate. The design incorporates wide roof overhangs for sun and rain protection, along with proper ventilation
+            to enhance thermal comfort.
+          </p>
+          <p>
+            The exterior is defined by a combination of light-colored finishes, textured elements, and a low-profile roof,
+            creating a refined yet welcoming residential character. The landscaped front yard complements the structure,
+            enhancing both curb appeal and overall livability.
+          </p>
+          <p>
+            This project reflects Caribbean Construction’s commitment to delivering well-built, practical, and aesthetically pleasing homes
+            tailored to the client’s needs and environment.
+          </p>
+        </div>
+
+        <div class="mission-vision">
+          <div class="info-card">
+            <h3>Project Highlights</h3>
+            <p><strong>Project Type:</strong> Single-Storey Residential House</p>
+            <p><strong>Design Style:</strong> American-Inspired Residence with Mediterranean Accents</p>
+            <p><strong>Key Features:</strong> Covered carport, generous living spaces, landscaped front yard, proper ventilation, and wide roof overhangs.</p>
+          </div>
+          <div class="info-card">
+            <h3>Design Focus</h3>
+            <p>
+              Comfort, functionality, climate-responsive design, and clean residential presentation suited to both the client’s lifestyle and the Batangas environment.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="projects-grid" style="margin-top:28px;">
+        <article class="project-card"><div class="project-image-wrap"><img src="project1abc.jpg" alt="Project 1 view abc" /></div></article>
+        <article class="project-card"><div class="project-image-wrap"><img src="project1a.jpg" alt="Project 1 view a" /></div></article>
+        <article class="project-card"><div class="project-image-wrap"><img src="project1b.jpg" alt="Project 1 view b" /></div></article>
+        <article class="project-card"><div class="project-image-wrap"><img src="project1c.jpg" alt="Project 1 view c" /></div></article>
+        <article class="project-card"><div class="project-image-wrap"><img src="project1d.jpg" alt="Project 1 view d" /></div></article>
+        <article class="project-card"><div class="project-image-wrap"><img src="project1e.jpg" alt="Project 1 view e" /></div></article>
+        <article class="project-card"><div class="project-image-wrap"><img src="project1f.jpg" alt="Project 1 view f" /></div></article>
+        <article class="project-card"><div class="project-image-wrap"><img src="project1g.jpg" alt="Project 1 view g" /></div></article>
+      </div>
+    </div>
+  </section>
+
+  <section id="cost-guide">
+    <div class="container">
+      <div class="section-head">
+        <span class="section-kicker">Cost Guide</span>
+        <h2>Helpful starting point for project budgeting.</h2>
+        <p>
+          These figures are sample cost references only and may vary depending on design complexity,
+          project location, materials, structural requirements, and selected finishes.
+        </p>
+      </div>
+
+      <div class="cost-grid">
+        <div class="cost-card">
+          <h3>Standard Residential Finish</h3>
+          <div class="price">₱25,000/sqm</div>
+          <p>Suitable for practical home construction with standard specifications and straightforward detailing.</p>
+          <ul>
+            <li>• Basic to standard finishes</li>
+            <li>• Functional planning</li>
+            <li>• Cost-conscious material selections</li>
+          </ul>
+        </div>
+
+        <div class="cost-card">
+          <h3>Mid-Range Residential Finish</h3>
+          <div class="price">₱30,000/sqm</div>
+          <p>Balanced option for clients seeking improved finishes, cleaner detailing, and stronger overall presentation.</p>
+          <ul>
+            <li>• Better material quality</li>
+            <li>• Improved visual appeal</li>
+            <li>• More refined design detailing</li>
+          </ul>
+        </div>
+
+        <div class="cost-card">
+          <h3>Premium Residential Finish</h3>
+          <div class="price">₱35,000/sqm</div>
+          <p>Ideal for clients targeting a more elevated build with higher-end materials and premium detailing.</p>
+          <ul>
+            <li>• Upgraded finishes and fittings</li>
+            <li>• Higher architectural value</li>
+            <li>• Stronger premium presentation</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="testimonials" class="alt">
+    <div class="container">
+      <div class="section-head">
+        <span class="section-kicker">Client Feedback</span>
+        <h2>Temporary testimonial content for a complete website presentation.</h2>
+        <p>
+          These are placeholder testimonials for layout purposes. Replace them later with real client comments,
+          project stories, or recommendation statements.
+        </p>
+      </div>
+
+      <div class="testimonials-grid">
+        <div class="testimonial-card">
+          <p>“The team was easy to coordinate with and helped us understand the project clearly from planning to execution.”</p>
+          <h4>Sample Client A</h4>
+          <span>Residential Owner</span>
+        </div>
+        <div class="testimonial-card">
+          <p>“Their practical approach to construction and budgeting helped us make better decisions early in the project.”</p>
+          <h4>Sample Client B</h4>
+          <span>Commercial Project Owner</span>
+        </div>
+        <div class="testimonial-card">
+          <p>“Reliable communication, realistic costing, and consistent follow-through made the process much smoother.”</p>
+          <h4>Sample Client C</h4>
+          <span>Renovation Client</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="contact-section">
+    <div class="container">
+      <div class="section-head">
+        <span class="section-kicker">Contact Us</span>
+        <h2>Let’s discuss your project requirements.</h2>
+        <p>
+          Whether you need construction, estimates, design support, or project management,
+          send us a message and we’ll help you explore the next steps.
+        </p>
+      </div>
+
+      <div class="contact-grid">
+        <div class="contact-card">
+          <h3>Company Contact Details</h3>
+          <div class="contact-info">
+            <div><strong>📱 Phone:</strong> +63 962 817 2051</div>
+            <div><strong>📧 Email:</strong> caribbeanconstruction20@gmail.com</div>
+            <div><strong>📍 Address:</strong> Anilao, Lipa City, Batangas</div>
+            <div><strong>🌐 Facebook:</strong> Caribbean Constructions</div>
+          </div>
+          <p style="color:rgba(255,255,255,0.82); margin-bottom:18px;">
+            Message us for a free consultation. We can help guide you from planning and budgeting
+            up to actual construction and project coordination.
+          </p>
+          <a href="mailto:caribbeanconstruction20@gmail.com" class="btn btn-primary" style="width:100%;">Send Email Inquiry</a>
+        </div>
+
+        <div class="contact-card">
+          <h3>Quick Inquiry Form</h3>
+          <form class="form-grid">
+            <div>
+              <input type="text" placeholder="Your Name" />
+            </div>
+            <div>
+              <input type="text" placeholder="Contact Number" />
+            </div>
+            <div class="full">
+              <input type="email" placeholder="Email Address" />
+            </div>
+            <div class="full">
+              <select>
+                <option selected disabled>Select Service Needed</option>
+                <option>Construction Services</option>
+                <option>Architectural & Design Support</option>
+                <option>Cost Estimation</option>
+                <option>Project Management</option>
+                <option>Renovation / Improvements</option>
+              </select>
+            </div>
+            <div class="full">
+              <textarea placeholder="Tell us about your project..."></textarea>
+            </div>
+            <div class="full">
+              <button type="submit" class="btn btn-primary" style="width:100%;">Submit Inquiry</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container footer-inner">
+      <div>© 2026 Caribbean Construction. All Rights Reserved.</div>
+      <div>Design + Build | Estimates | Project Management</div>
+    </div>
+  </footer>
+</body>
+</html>
